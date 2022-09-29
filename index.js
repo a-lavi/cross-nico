@@ -42,15 +42,15 @@ const port = process.env.PORT || 5050
 
 
 app.get('/api/restaurants', (req, res) => {
-    res.json({data:restaurants})
+    
     getRestaurants()
     .then((data) => {res.json(data)})
     .catch(err => sendErrorOutput(err, res))
 })
 app.post('/api/restaurants', (req, res) => {
    
-    postRestaurants()
-    .then((data) => {res.json(restaurant)})
+    postRestaurants(req.body)
+    .then((data) => {res.json(data)})
     .catch(err => sendErrorOutput(err, res))
 })
 
