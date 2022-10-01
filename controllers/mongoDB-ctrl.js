@@ -19,7 +19,7 @@ function _makedbRestaurants(dbRestaurant) {
         rating: dbRestaurant.rating,
         tags: dbRestaurant.tags ,
         latitude : dbRestaurant.latitude,
-    longitude: dbRestaurant.longitude      
+        longitude: dbRestaurant.longitude      
     }
 }
 function _makedbComments(dbComments) {
@@ -62,7 +62,7 @@ async function postRestaurants(update) {
         rating: update.rating,
         tags: update.tags,
         latitude : update.latitude,
-    longitude: update.longitude 
+        longitude: update.longitude 
     })
     return _makedbRestaurants(postRestaurants)
 }
@@ -104,5 +104,6 @@ module.exports={
     getOneRestaurant,
     postRestaurants,
     getComments,
-    postComment,putRestaurant
+    postComment,
+    putRestaurant
 }

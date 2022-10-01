@@ -85,9 +85,9 @@ app.post('/api/comments/:id', (req, res) => {
 })
 app.put('/api/restaurants/:id', (req, res)=>{
     const{id } =req.params
-    const {name, imgUrl, city, rating, tags,latitude,longitude} = req.body
-    //console.log(id,title, author, imgUrl,richText,publisher, slug)
-     putRestaurant(name, imgUrl, city, rating, tags,id,latitude,longitude)
+    const {name, imgUrl, city, rating, tags, latitude, longitude} = req.body
+    //console.log(id, name, imgUrl, city, rating, tags, latitude, longitude)
+     putRestaurant(id, name, imgUrl, city, rating, tags, latitude, longitude)
      .then((data) => {res.send(data)})
     .catch(err => sendErrorOutput(err, res))
 
