@@ -25,7 +25,8 @@ function _makedbComments(dbComments) {
         id: dbComments._id,
         comment: dbComments.comment,
         author: dbComments.author,
-        date: dbComments.date
+        date: dbComments.date,
+        restaurant_id: dbComments.restaurant_id
     }
 }
 
@@ -33,9 +34,16 @@ async function getRestaurants() {
     const dbRestaurants = await Restaurant.find({})
     return dbRestaurants.map((dbRestaurant) => _makedbRestaurants(dbRestaurant))
 }
+
 async function getOneRestaurant(id) {
+    const comments = await Comments.find({restaurant_id:id})
+    console.log(comments )
     const oneRestaurant = await Restaurant.findById(id)
-    return _makedbRestaurants(oneRestaurant)
+const comm= await comments.map((dbComments) => _makedbComments(dbComments))
+console.log(comm)
+const one = _makedbRestaurants(oneRestaurant)
+    return {...one, comm} 
+  
 }
 
 async function getComments() {
@@ -56,6 +64,20 @@ async function postRestaurants(update) {
     return _makedbRestaurants(postRestaurants)
 }
 
+async function postComment(req) {
+    const update= req.body
+    const restId= req.params.id
+    console.log(restId)
+    const postComments = await Comments.create({
+        comment: update.comment,
+        author: update.author,
+        /* date: update.date, */
+        restaurant_id: restId
+    })
+    return _makedbComments(postComments)
+}
+
+
 
 
 
@@ -64,4 +86,5 @@ module.exports={
     getOneRestaurant,
     postRestaurants,
     getComments,
+    postComment
 }

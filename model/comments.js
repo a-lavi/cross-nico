@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const commentsSchema = new Schema({
     comment: String,
     author: String,
-    date: String,
+    date: { type: Date, default: Date.now },
     restaurant_id: String
 })
 
