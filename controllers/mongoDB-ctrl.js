@@ -85,7 +85,7 @@ async function putRestaurant(id, name, imgUrl, city, rating, tags,latitude,longi
       { _id: id },
       {
         name: name,
-        img_url: imgUrl,
+        imgUrl: imgUrl,
         city: city,
         rating: rating,
         tags: tags,
