@@ -17,7 +17,9 @@ function _makedbRestaurants(dbRestaurant) {
         imgUrl: dbRestaurant.imgUrl,
         city: dbRestaurant.city,
         rating: dbRestaurant.rating,
-        tags: dbRestaurant.tags       
+        tags: dbRestaurant.tags ,
+        latitude : dbRestaurant.latitude,
+    longitude: dbRestaurant.longitude      
     }
 }
 function _makedbComments(dbComments) {
@@ -37,7 +39,6 @@ async function getRestaurants() {
 
 async function getOneRestaurant(id) {
     const comments = await Comments.find({restaurant_id:id})
-    console.log(comments )
     const oneRestaurant = await Restaurant.findById(id)
 const comm= await comments.map((dbComments) => _makedbComments(dbComments))
 console.log(comm)
@@ -59,7 +60,9 @@ async function postRestaurants(update) {
         imgUrl: update.imgUrl,
         city: update.city,
         rating: update.rating,
-        tags: update.tags
+        tags: update.tags,
+        latitude : update.latitude,
+    longitude: update.longitude 
     })
     return _makedbRestaurants(postRestaurants)
 }
@@ -77,7 +80,22 @@ async function postComment(req) {
     return _makedbComments(postComments)
 }
 
-
+async function putRestaurant(id, name, imgUrl, city, rating, tags,latitude,longitude) {
+    const updateRestaurant = await Restaurant.findByIdAndUpdate(
+      { _id: id },
+      {
+        name: name,
+        img_url: imgUrl,
+        city: city,
+        rating: rating,
+        tags: tags,
+        latitude : latitude,
+        longitude: longitude 
+      }, {new : true}
+    );
+  
+    return _makedbRestaurants(updateRestaurant);
+  }
 
 
 
@@ -86,5 +104,5 @@ module.exports={
     getOneRestaurant,
     postRestaurants,
     getComments,
-    postComment
+    postComment,putRestaurant
 }

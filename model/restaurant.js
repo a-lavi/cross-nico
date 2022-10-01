@@ -7,6 +7,9 @@ const restaurantSchema = new Schema({
     city: String,
     rating: Number,
     tags: String,
+    latitude : String,
+    longitude: String
+
 })
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

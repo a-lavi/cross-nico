@@ -16,7 +16,9 @@ const {
     getRestaurants,
     getOneRestaurant,
     postRestaurants,
-    getComments,postComment
+    getComments,
+    postComment,
+    putRestaurant
 } =require('./controllers/mongoDB-ctrl')
 const restaurants = [
     {
@@ -80,6 +82,15 @@ app.post('/api/comments/:id', (req, res) => {
     postComment(req)
     .then((data) => {res.json(data)})
     .catch(err => sendErrorOutput(err, res))
+})
+app.put('/api/restaurants/:id', (req, res)=>{
+    const{id } =req.params
+    const {name, imgUrl, city, rating, tags,latitude,longitude} = req.body
+    //console.log(id,title, author, imgUrl,richText,publisher, slug)
+     putRestaurant(name, imgUrl, city, rating, tags,id,latitude,longitude)
+     .then((data) => {res.send(data)})
+    .catch(err => sendErrorOutput(err, res))
+
 })
 
 
